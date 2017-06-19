@@ -18,22 +18,31 @@ void KalmanFilter::Init(VectorXd &x_in, MatrixXd &P_in, MatrixXd &F_in,
 }
 
 void KalmanFilter::Predict() {
-  /**
-  TODO:
-    * predict the state
-  */
+    x_ = F_ * x_;
+    MatrixXd Ft = F_.transpose();
+    P_ = F_ * P_ * Ft + Q_;
 }
 
 void KalmanFilter::Update(const VectorXd &z) {
-  /**
-  TODO:
-    * update the state by using Kalman Filter equations
-  */
+
+    // KF Measurement update step
+    VectorXd y = z - H_ * x_;
+    MatrixXd Ht = H_.transpose();
+    MatrixXd S = H_ * P_ * Ht + R_;
+    MatrixXd Si = S.inverse();
+    MatrixXd K =  P_ * Ht * Si;
+
+    MatrixXd I; // Identity matrix
+    //new state
+    x_ = x_ + (K * y);
+    I = MatrixXd::Identity()
+    P_ = (I - K * H_) * P_;
 }
 
 void KalmanFilter::UpdateEKF(const VectorXd &z) {
-  /**
-  TODO:
-    * update the state by using Extended Kalman Filter equations
-  */
+  // Section 14 of lesson 5
+    float x = x_;
+    float y = x_;
+    float
+  // In section 7 of lesson 5
 }
