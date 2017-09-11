@@ -36,7 +36,7 @@ void KalmanFilter::Init(VectorXd &x_in, MatrixXd &P_in, MatrixXd &F_in,
 }
 
 void KalmanFilter::Predict() {
-    cout << x_ << endl;
+    cout << x_ << '\n'<< endl;
     cout << "========" << endl;
     x_ = F_ * x_;
     MatrixXd Ft = F_.transpose();
